@@ -1,25 +1,39 @@
 "use client"
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useRouter } from 'next/navigation'
 import Loading from '../components/Loading';
+import { magic } from '../lib/magic';
+
+interface User {
+  issuer: string | null;
+  publicAddress: string | null;
+  email: string | null;
+  isMfaEnabled: boolean | null;
+  phoneNumber: string | null;
+}
 
 const Profile = () => {
   const router = useRouter();
-  const { user } = useContext(UserContext);
+  const [user, setUser] = useState<User>()
 
-  console.log(user)
   // Redirect to login page if not loading and no user found
   useEffect(() => {
-    user && !user.loading && !user?.issuer && router.push('/login');
-  }, [user, history]);
+    getUser()
+    user && !user?.issuer && router.push('/login');
+  }, []);
+
+  const getUser = async () => {
+    const magicUser = await magic?.user.getMetadata()
+    setUser(magicUser)
+  }
 
   return (
     <>
-      {!user?.issuer || user?.loading ? (
+      {!user?.issuer ? (
         <Loading />
       ) : (
-        user?.issuer && (
+        (
           <div className="text-center">
             <div className='label'>Email</div>
             <div className='profile-info'>{user.email}</div>

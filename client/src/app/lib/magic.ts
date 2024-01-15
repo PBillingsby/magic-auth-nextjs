@@ -1,16 +1,14 @@
+import { OAuthExtension } from "@magic-ext/oauth";
 import { Magic } from "magic-sdk";
 
-// Initialize the Magic instance
 const createMagic = (): Magic | null => {
-  return (
-    typeof window !== "undefined" &&
-    new Magic(process?.env?.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY!, {
-      network: {
-        rpcUrl: "https://rpc2.sepolia.org",
-        chainId: 11155111,
-      },
-    })
-  ) || null;
+  if (typeof window !== "undefined") {
+    return new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY!, {
+      extensions: { oauth: new OAuthExtension() }, // Use an object with extension name as key
+    }) as any | null;
+  }
+
+  return null;
 };
 
 export const magic: Magic | null = createMagic();

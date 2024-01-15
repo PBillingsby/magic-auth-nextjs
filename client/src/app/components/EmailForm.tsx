@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const EmailForm = ({ onEmailSubmit, disabled }: any) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("pbillygoat@gmail.com");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +16,8 @@ const EmailForm = ({ onEmailSubmit, disabled }: any) => {
           <input
             className="rounded-md p-2"
             placeholder='Enter your email'
-            // size='sm'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          // prefix={<Icon type={MonochromeIcons.Envelope} size={23} color={'#000'} />}
           />
         </div>
         <div>
