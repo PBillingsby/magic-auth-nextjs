@@ -18,10 +18,11 @@ app.post('/api/login', async (req: Request, res: Response) => {
     if (!didToken) {
       throw new Error('Authorization header is missing');
     }
+
     await magic.token.validate(didToken);
-    console.log("!!!!!!", res.status)
     res.status(200).json({ authenticated: true });
   } catch (error) {
+    console.log("Server Error: ", res.status(200))
     res.status(500).json({ error: (error as Error).message });
   }
 });
