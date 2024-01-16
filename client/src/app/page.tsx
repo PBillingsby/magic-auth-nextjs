@@ -8,16 +8,14 @@ export default function Home() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) {
-      router.push('/profile');
-    } else {
+    if (!user) {
       router.push('/login')
     }
   }, [user]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      ...loading
+      {!user ? "...loading" : "You're logged in!"}
     </main>
   )
 }

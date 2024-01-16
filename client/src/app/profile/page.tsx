@@ -15,18 +15,12 @@ interface User {
 
 const Profile = () => {
   const router = useRouter();
-  const [user, setUser] = useState<User>()
+  const { user, isLoggedIn } = useContext(UserContext);
 
   // Redirect to login page if not loading and no user found
   useEffect(() => {
-    getUser()
     user && !user?.issuer && router.push('/login');
   }, []);
-
-  const getUser = async () => {
-    const magicUser = await magic?.user.getMetadata()
-    setUser(magicUser)
-  }
 
   return (
     <>

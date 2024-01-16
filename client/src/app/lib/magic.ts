@@ -5,7 +5,7 @@ const createMagic = (): Magic | null => {
   if (typeof window !== "undefined") {
     return new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY!, {
       extensions: { oauth: new OAuthExtension() }, // Use an object with extension name as key
-    }) as any | null;
+    }) as unknown as Magic;
   }
 
   return null;

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const EmailForm = ({ onEmailSubmit, disabled }: any) => {
-  const [email, setEmail] = useState("pbillygoat@gmail.com");
+  const [email, setEmail] = useState<string>("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     onEmailSubmit(email);
   };

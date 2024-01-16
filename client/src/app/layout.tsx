@@ -19,14 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Web3Provider>
-        <UserProvider>
-          <body className={inter.className}>
-            <Header />
-            {children}
-          </body>
-        </UserProvider>
-      </Web3Provider>
+      <UserProvider>
+        <body className={inter.className}>
+          <Header />
+          {children}
+        </body>
+      </UserProvider>
     </html>
   )
 }

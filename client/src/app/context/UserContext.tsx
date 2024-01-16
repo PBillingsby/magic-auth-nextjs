@@ -40,19 +40,19 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // Fetch user data when web3 instance is available
   useEffect(() => {
     const fetchData = async () => {
-      // try {
-      //   const isLoggedIn = await magic?.user?.isLoggedIn();
+      try {
+        const isLoggedIn = await magic?.user?.isLoggedIn();
 
-      //   if (isLoggedIn) {
-      //     setIsLoggedIn(isLoggedIn)
-      //     console.log("1: Before calling isLoggedIn")
-      //     let userMetadata = await magic?.user.getMetadata();
-      //     console.log("2: After calling isLoggedIn")
-      //     setUser(userMetadata);
-      //   }
-      // } catch (err) {
-      //   console.log("User Context Error: ", err)
-      // }
+        if (isLoggedIn) {
+          setIsLoggedIn(isLoggedIn)
+          console.log("1: Before calling isLoggedIn")
+          let userMetadata = await magic?.user.getMetadata();
+          console.log("2: After calling isLoggedIn")
+          setUser(userMetadata);
+        }
+      } catch (err) {
+        console.log("User Context Error: ", err)
+      }
     };
 
     fetchData();

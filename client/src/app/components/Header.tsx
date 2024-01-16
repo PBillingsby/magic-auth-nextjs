@@ -6,19 +6,26 @@ import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const router = useRouter()
-  const { user } = useContext(UserContext);
+  const { user, setUser, isLoggedIn } = useContext(UserContext);
 
   const logout = async () => {
-    const result = await magic?.user.logout();
+    const result: boolean | undefined = await magic?.user.logout();
+    debugger
     if (result === true) {
-      router.push("/login")
+      setUser(undefined);
+      router.push("/login");
     }
   }
   return (
     <nav className=" text-[#6851ff] p-2">
-      {user ?
+      {user && isLoggedIn ?
         <div className="flex justify-between">
           <ul className="flex gap-4">
+            <li>
+              <button onClick={() => router.push('/')}>
+                Home
+              </button>
+            </li>
             <li>
               <button onClick={() => router.push('/profile')}>
                 Profile
@@ -32,7 +39,7 @@ const Header = () => {
           </ul>
         </div>
         :
-        <p>Login</p>
+        null
       }
     </nav>
   )

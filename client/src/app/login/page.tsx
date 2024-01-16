@@ -15,7 +15,7 @@ const Login = () => {
   // If user is already logged in, redirect to profile page
   useEffect(() => {
     setLoading(true)
-    if (user && user?.issuer) {
+    if (user?.issuer && isLoggedIn) {
       router.push('/profile')
     };
     setLoading(false)
@@ -41,9 +41,10 @@ const Login = () => {
 
       if (res.status === 200) {
         // Set the UserContext to the now logged in user
+        console.log("-----", user)
         let userMetadata = await magic?.user.getMetadata();
         if (userMetadata !== null && userMetadata !== undefined) {
-          setUser(userMetadata);
+          setUser(userMetadata!);
         }
       }
     } catch (error) {
@@ -53,10 +54,10 @@ const Login = () => {
   }
 
   async function handleLoginWithSocial(provider: any) {
-    // await magic?.oauth.loginWithRedirect({
-    //   provider,
-    //   redirectURI: new URL('/callback', window.location.origin).href, // required redirect to finish social login
-    // });
+    await magic?.oauth.loginWithRedirect({
+      provider,
+      redirectURI: new URL('/callback', window.location.origin).href, // required redirect to finish social login
+    });
   }
 
   return (
